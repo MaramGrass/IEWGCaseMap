@@ -193,7 +193,7 @@ export default function App() {
 
           {/* Legend */}
           <div style={{
-            position: 'absolute', bottom: 12, right: 12, zIndex: 20,
+            position: 'absolute', top: 12, right: 12, zIndex: 20,
             background: 'rgba(255,255,255,0.95)',
             border: '1px solid rgba(26,46,90,0.12)',
             padding: '0.7rem 0.9rem',

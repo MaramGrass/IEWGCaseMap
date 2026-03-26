@@ -56,15 +56,15 @@ export default function App() {
     <div style={{
       display: 'flex', flexDirection: 'column',
       height: '100vh', width: '100vw',
-      background: '#edf1f8',
+      background: '#123160',
       overflow: 'hidden',
     }}>
 
       {/* ── HEADER ─────────────────────────────────────────────────────── */}
       <header style={{
         flexShrink: 0,
-        background: '#ffffff',
-        borderBottom: '1px solid rgba(26,46,90,0.1)',
+        background: '#0d2450',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
         padding: '0 1.75rem',
         height: 68,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -77,53 +77,42 @@ export default function App() {
             alt="IEWG Logo"
             style={{ height: 44, width: 44, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
           />
-          <div style={{ width: 1, height: 32, background: 'rgba(26,46,90,0.15)' }} />
+          <div style={{ width: 1, height: 32, background: 'rgba(255,255,255,0.12)' }} />
           <img
             src="/GPA_Logo.png"
             alt="GPA Logo"
-            style={{ height: 38, width: 38, objectFit: 'contain', flexShrink: 0 }}
+            style={{ height: 38, width: 38, objectFit: 'contain', flexShrink: 0, filter: 'brightness(0) invert(1)' }}
           />
-          <div style={{ width: 1, height: 32, background: 'rgba(26,46,90,0.15)' }} />
+          <div style={{ width: 1, height: 32, background: 'rgba(255,255,255,0.12)' }} />
           <div>
             <h1 style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(0.85rem, 1.5vw, 1.05rem)',
-              fontWeight: 700, color: '#1a2e5a',
+              fontWeight: 700, color: '#ffffff',
               letterSpacing: '-0.01em', lineHeight: 1.2,
             }}>
               Transnational Data Protection Cases
             </h1>
             <p style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.6rem', color: 'rgba(26,46,90,0.45)',
+              fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)',
               textTransform: 'uppercase', letterSpacing: '0.1em',
               marginTop: '0.2rem',
             }}>
-              International Enforcement Cooperation Working Group · GPA
+              International Enforcement Cooperation Working Group
             </p>
           </div>
         </div>
 
-        {/* Right: stats */}
-        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-          {[
-            ['30', 'Cases'],
-            [ALL_JURISDICTIONS.length, 'Jurisdictions'],
-            [filteredCases.length, 'Showing'],
-          ].map(([n, l]) => (
-            <div key={l} style={{ textAlign: 'center' }}>
-              <div style={{
-                fontFamily: 'var(--font-sans)', fontSize: '1.4rem',
-                fontWeight: 700, color: '#4a7fd4', lineHeight: 1,
-              }}>{n}</div>
-              <div style={{
-                fontFamily: 'var(--font-mono)', fontSize: '0.55rem',
-                textTransform: 'uppercase', letterSpacing: '0.1em',
-                color: 'rgba(26,46,90,0.4)', marginTop: '0.15rem',
-              }}>{l}</div>
-            </div>
-          ))}
-        </div>
+        {/* Right: affiliation */}
+        <p style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.65rem', color: 'rgba(255,255,255,0.45)',
+          textTransform: 'uppercase', letterSpacing: '0.1em',
+          whiteSpace: 'nowrap',
+        }}>
+          Part of the Global Privacy Assembly
+        </p>
       </header>
 
       {/* ── BODY ───────────────────────────────────────────────────────── */}
@@ -165,8 +154,8 @@ export default function App() {
           {/* Year slider */}
           <div style={{
             position: 'absolute', bottom: 12, left: 12, zIndex: 20,
-            background: 'rgba(255,255,255,0.95)',
-            border: '1px solid rgba(26,46,90,0.12)',
+            background: 'rgba(10,28,64,0.9)',
+            border: '1px solid rgba(255,255,255,0.1)',
             padding: '0.65rem 1rem',
             backdropFilter: 'blur(6px)',
             borderRadius: 3,
@@ -174,7 +163,7 @@ export default function App() {
             <div style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
               textTransform: 'uppercase', letterSpacing: '0.1em',
-              color: 'rgba(26,46,90,0.5)', marginBottom: '0.4rem',
+              color: 'rgba(255,255,255,0.4)', marginBottom: '0.4rem',
             }}>
               Up to year
             </div>
@@ -194,8 +183,8 @@ export default function App() {
           {/* Legend */}
           <div style={{
             position: 'absolute', top: 12, right: 12, zIndex: 20,
-            background: 'rgba(255,255,255,0.95)',
-            border: '1px solid rgba(26,46,90,0.12)',
+            background: 'rgba(10,28,64,0.9)',
+            border: '1px solid rgba(255,255,255,0.1)',
             padding: '0.7rem 0.9rem',
             backdropFilter: 'blur(6px)',
             borderRadius: 3,
@@ -203,19 +192,19 @@ export default function App() {
             <div style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
               textTransform: 'uppercase', letterSpacing: '0.1em',
-              color: 'rgba(26,46,90,0.45)', marginBottom: '0.5rem',
+              color: 'rgba(255,255,255,0.4)', marginBottom: '0.5rem',
             }}>
               Enforcement Type
             </div>
             {Object.entries(CAT_CONFIG).map(([k, v]) => (
               <div key={k} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.32rem' }}>
                 <div style={{ width: 9, height: 9, borderRadius: '50%', background: v.color, flexShrink: 0, boxShadow: `0 0 4px ${v.color}66` }} />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'rgba(26,46,90,0.7)' }}>{v.label}</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'rgba(255,255,255,0.65)' }}>{v.label}</span>
               </div>
             ))}
             <div style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.55rem',
-              color: 'rgba(26,46,90,0.35)', marginTop: '0.5rem',
+              color: 'rgba(255,255,255,0.28)', marginTop: '0.5rem',
             }}>
               Size = number of cases
             </div>
@@ -233,26 +222,26 @@ export default function App() {
         {/* ── SIDEBAR ──────────────────────────────────────────────────── */}
         <div style={{
           display: 'flex', flexDirection: 'column',
-          background: '#ffffff',
-          borderLeft: '1px solid rgba(26,46,90,0.1)',
+          background: '#0d2450',
+          borderLeft: '1px solid rgba(255,255,255,0.07)',
           overflow: 'hidden',
         }}>
           {/* Sidebar header */}
           <div style={{
             padding: '0.9rem 1.25rem',
-            borderBottom: '1px solid rgba(26,46,90,0.1)',
+            borderBottom: '1px solid rgba(255,255,255,0.07)',
             flexShrink: 0,
           }}>
             <h2 style={{
               fontFamily: 'var(--font-sans)', fontSize: '0.95rem',
-              fontWeight: 700, color: '#1a2e5a',
+              fontWeight: 700, color: '#ffffff',
             }}>
               Case Registry
             </h2>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.2rem' }}>
               <p style={{
                 fontFamily: 'var(--font-mono)', fontSize: '0.6rem',
-                color: 'rgba(26,46,90,0.4)',
+                color: 'rgba(255,255,255,0.35)',
                 letterSpacing: '0.04em',
               }}>
                 {selectedJurisdiction
@@ -265,7 +254,7 @@ export default function App() {
                   style={{
                     fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
                     background: 'none', border: 'none', cursor: 'pointer',
-                    color: '#4a7fd4', letterSpacing: '0.04em', padding: 0,
+                    color: '#4a9fd4', letterSpacing: '0.04em', padding: 0,
                   }}
                 >
                   ✕ clear
@@ -275,7 +264,7 @@ export default function App() {
           </div>
 
           {/* Search */}
-          <div style={{ padding: '0.7rem 1.25rem', borderBottom: '1px solid rgba(26,46,90,0.1)', flexShrink: 0 }}>
+          <div style={{ padding: '0.7rem 1.25rem', borderBottom: '1px solid rgba(255,255,255,0.07)', flexShrink: 0 }}>
             <input
               type="text"
               placeholder="Search cases, technologies, DPAs…"
@@ -283,11 +272,11 @@ export default function App() {
               onChange={e => setSearchQuery(e.target.value)}
               style={{
                 width: '100%',
-                background: 'rgba(26,46,90,0.05)',
-                border: '1px solid rgba(26,46,90,0.15)',
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.1)',
                 padding: '0.45rem 0.75rem',
                 fontFamily: 'var(--font-sans)', fontSize: '0.78rem',
-                color: '#1a2e5a', outline: 'none', borderRadius: 2,
+                color: '#ffffff', outline: 'none', borderRadius: 2,
               }}
             />
           </div>
@@ -298,38 +287,38 @@ export default function App() {
               <div style={{
                 padding: '2.5rem 1.25rem', textAlign: 'center',
                 fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
-                color: 'rgba(26,46,90,0.3)',
+                color: 'rgba(255,255,255,0.25)',
               }}>
                 No cases match current filters.
               </div>
             ) : byJurisdiction.map(([jur, cases]) => (
-              <div key={jur} style={{ borderBottom: '1px solid rgba(26,46,90,0.07)' }}>
+              <div key={jur} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
                 {/* Jurisdiction header */}
                 <div
                   onClick={() => setSelectedJurisdiction(jur === selectedJurisdiction ? null : jur)}
                   style={{
                     padding: '0.5rem 1.25rem',
-                    background: 'rgba(26,46,90,0.04)',
-                    borderBottom: '1px solid rgba(26,46,90,0.08)',
+                    background: 'rgba(255,255,255,0.04)',
+                    borderBottom: '1px solid rgba(255,255,255,0.06)',
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                     cursor: 'pointer',
                     position: 'sticky', top: 0, zIndex: 1,
                     transition: 'background 0.15s',
                   }}
-                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(26,46,90,0.08)'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'rgba(26,46,90,0.04)'}
+                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.04)'}
                 >
                   <span style={{
                     fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
                     textTransform: 'uppercase', letterSpacing: '0.1em',
-                    color: selectedJurisdiction === jur ? '#4a7fd4' : 'rgba(26,46,90,0.55)',
+                    color: selectedJurisdiction === jur ? '#4a9fd4' : 'rgba(255,255,255,0.5)',
                   }}>
                     {jur}
                   </span>
                   <span style={{
                     fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
-                    color: 'rgba(26,46,90,0.35)',
-                    background: 'rgba(26,46,90,0.06)',
+                    color: 'rgba(255,255,255,0.28)',
+                    background: 'rgba(255,255,255,0.06)',
                     padding: '0.1rem 0.4rem', borderRadius: 2,
                   }}>
                     {cases.length}
@@ -348,7 +337,7 @@ export default function App() {
                       onMouseLeave={() => setHoveredCaseId(null)}
                       style={{
                         padding: '0.7rem 1.25rem',
-                        borderBottom: '1px solid rgba(26,46,90,0.06)',
+                        borderBottom: '1px solid rgba(255,255,255,0.04)',
                         borderLeft: isSelected
                           ? `3px solid ${CAT_CONFIG[c.enforcement_category]?.color || '#4a9fd4'}`
                           : '3px solid transparent',
@@ -363,7 +352,7 @@ export default function App() {
                     >
                       <div style={{
                         fontSize: '0.8rem', fontWeight: 500,
-                        color: '#1a2e5a', lineHeight: 1.35, marginBottom: '0.35rem',
+                        color: '#ffffff', lineHeight: 1.35, marginBottom: '0.35rem',
                       }}>
                         {c.case_name}
                       </div>
@@ -372,16 +361,16 @@ export default function App() {
                           <span style={{
                             fontFamily: 'var(--font-mono)', fontSize: '0.6rem',
                             padding: '0.1rem 0.4rem',
-                            background: 'rgba(26,46,90,0.06)',
-                            border: '1px solid rgba(26,46,90,0.12)',
-                            borderRadius: 2, color: 'rgba(26,46,90,0.55)',
+                            background: 'rgba(255,255,255,0.06)',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            borderRadius: 2, color: 'rgba(255,255,255,0.45)',
                           }}>{c.year_enforced}</span>
                         )}
                         <CatTag cat={c.enforcement_category} small />
                         {c.affected_countries?.length > 1 && (
                           <span style={{
                             fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
-                            color: 'rgba(26,46,90,0.4)',
+                            color: 'rgba(255,255,255,0.32)',
                           }}>
                             {c.affected_countries.length} countries
                           </span>
@@ -407,9 +396,9 @@ function FilterChip({ active, color, onClick, children }) {
     <button
       onClick={onClick}
       style={{
-        background: active ? (color || '#1a2e5a') : 'rgba(255,255,255,0.92)',
-        border: `1px solid ${active ? (color || '#1a2e5a') : 'rgba(26,46,90,0.2)'}`,
-        color: active ? '#ffffff' : 'rgba(26,46,90,0.6)',
+        background: active ? (color || 'rgba(255,255,255,0.9)') : 'rgba(10,28,64,0.88)',
+        border: `1px solid ${active ? (color || 'rgba(255,255,255,0.8)') : 'rgba(255,255,255,0.18)'}`,
+        color: active ? (color ? '#ffffff' : '#0f1d3a') : 'rgba(255,255,255,0.65)',
         padding: '0.3rem 0.75rem',
         fontFamily: 'var(--font-mono)', fontSize: '0.66rem',
         letterSpacing: '0.04em', cursor: 'pointer', borderRadius: 2,

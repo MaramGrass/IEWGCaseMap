@@ -14,7 +14,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('')
   const [detailCase, setDetailCase] = useState(null)
 
-  const filteredCases = useMemo(() => CASES.filter(c => {
+  const mapCases = useMemo(() => CASES.filter(c => {
     const yearOk = !c.year_enforced || parseInt(c.year_enforced) <= maxYear
     const filterOk = activeFilter === 'all' || c.enforcement_category === activeFilter
     const q = searchQuery.toLowerCase().trim()
@@ -24,9 +24,12 @@ export default function App() {
       || c.description.toLowerCase().includes(q)
       || c.technologies.toLowerCase().includes(q)
       || c.dpa.toLowerCase().includes(q)
-    const jurOk = !selectedJurisdiction || c.jurisdiction === selectedJurisdiction
-    return yearOk && filterOk && searchOk && jurOk
-  }), [activeFilter, selectedJurisdiction, maxYear, searchQuery])
+    return yearOk && filterOk && searchOk
+  }), [activeFilter, maxYear, searchQuery])
+
+  const filteredCases = useMemo(() => mapCases.filter(c =>
+    !selectedJurisdiction || c.jurisdiction === selectedJurisdiction
+  ), [mapCases, selectedJurisdiction])
 
   const byJurisdiction = useMemo(() => {
     const map = {}
@@ -206,6 +209,7 @@ export default function App() {
 
           <WorldMap
             filteredCases={filteredCases}
+            mapCases={mapCases}
             selectedCaseId={selectedCaseId}
             hoveredCaseId={hoveredCaseId}
             selectedJurisdiction={selectedJurisdiction}

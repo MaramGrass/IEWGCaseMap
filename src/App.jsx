@@ -89,7 +89,7 @@ export default function App() {
             </h1>
             <p style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.6rem', color: 'rgba(255,255,255, 0.3)',
+              fontSize: '0.6rem', color: 'rgba(255,255,255, 0.1)',
               textTransform: 'uppercase', letterSpacing: '0.1em',
               marginTop: '0.2rem',
             }}>

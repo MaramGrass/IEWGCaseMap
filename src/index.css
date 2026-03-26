@@ -12,9 +12,7 @@
   --accent-warm:#c84b2f;
   --text:       #0f1d3a;
 
-  --font-serif: 'Libre Baskerville', Georgia, serif;
-  --font-sans:  'Source Sans 3', sans-serif;
-  --font-mono:  'Outfit', sans-serif;
+  --font-family: 'Outfit', sans-serif;
 }
 
 *, *::before, *::after {
@@ -30,9 +28,9 @@ html, body, #root {
 }
 
 body {
-  font-family: var(--font-sans);
-  background: #123160;
-  color: var(--white);
+  font-family: 'Outfit', sans-serif;
+  background: #edf1f8;
+  color: var(--navy-deep);
   -webkit-font-smoothing: antialiased;
 }
 

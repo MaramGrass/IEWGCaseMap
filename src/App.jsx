@@ -63,8 +63,8 @@ export default function App() {
       {/* ── HEADER ─────────────────────────────────────────────────────── */}
       <header style={{
         flexShrink: 0,
-        background: '#0d2450',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        background: '#12315d',
+        borderBottom: '1px solid rgba(26,46,90,0.1)',
         padding: '0 1.75rem',
         height: 68,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -75,13 +75,7 @@ export default function App() {
           <img
             src="/IEWG_Logo.jpg"
             alt="IEWG Logo"
-            style={{ height: 44, width: 44, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
-          />
-          <div style={{ width: 1, height: 32, background: 'rgba(255,255,255,0.12)' }} />
-          <img
-            src="/GPA_Logo.png"
-            alt="GPA Logo"
-            style={{ height: 38, width: 38, objectFit: 'contain', flexShrink: 0, filter: 'brightness(0) invert(1)' }}
+            style={{ height: 60, width: 60, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
           />
           <div style={{ width: 1, height: 32, background: 'rgba(255,255,255,0.12)' }} />
           <div>
@@ -95,7 +89,7 @@ export default function App() {
             </h1>
             <p style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.6rem', color: 'rgba(255,255,255,0.4)',
+              fontSize: '0.6rem', color: 'rgba(255,255,255, 0.3)',
               textTransform: 'uppercase', letterSpacing: '0.1em',
               marginTop: '0.2rem',
             }}>
@@ -104,15 +98,12 @@ export default function App() {
           </div>
         </div>
 
-        {/* Right: affiliation */}
-        <p style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: '0.65rem', color: 'rgba(255,255,255,0.45)',
-          textTransform: 'uppercase', letterSpacing: '0.1em',
-          whiteSpace: 'nowrap',
-        }}>
-          Part of the Global Privacy Assembly
-        </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <img
+            src="/IEWG_Logo.jpg"
+            alt="IEWG Logo"
+            style={{ height: 60, width: 60, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
+          />
       </header>
 
       {/* ── BODY ───────────────────────────────────────────────────────── */}

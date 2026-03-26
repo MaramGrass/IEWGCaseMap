@@ -64,24 +64,24 @@ export default function App() {
       <header style={{
         flexShrink: 0,
         background: '#12315d',
-        borderBottom: '1px solid rgba(26,46,90,0.1)',
-        padding: '0 1.75rem',
-        height: 68,
+        borderBottom: '1px solid rgba(0,0,0,0.15)',
+        padding: '0 2rem',
+        height: 84,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         gap: '1rem',
       }}>
-        {/* Left: logos + title */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        {/* Left: logo + title */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.4rem' }}>
           <img
             src="/IEWG_Logo.jpg"
             alt="IEWG Logo"
-            style={{ height: 60, width: 60, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
+            style={{ height: 72, width: 72, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
           />
-          <div style={{ width: 1, height: 32, background: 'rgba(255,255,255,0.12)' }} />
+          <div style={{ width: 1, height: 42, background: 'rgba(255,255,255,0.15)' }} />
           <div>
             <h1 style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: 'clamp(0.85rem, 1.5vw, 1.05rem)',
+              fontSize: 'clamp(1rem, 1.8vw, 1.25rem)',
               fontWeight: 700, color: '#ffffff',
               letterSpacing: '-0.01em', lineHeight: 1.2,
             }}>
@@ -89,14 +89,24 @@ export default function App() {
             </h1>
             <p style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.6rem', color: 'rgba(255,255,255, 0.3)',
+              fontSize: '0.65rem', color: 'rgba(255,255,255,0.35)',
               textTransform: 'uppercase', letterSpacing: '0.1em',
-              marginTop: '0.2rem',
+              marginTop: '0.3rem',
             }}>
               International Enforcement Cooperation Working Group
             </p>
           </div>
         </div>
+
+        {/* Right: affiliation */}
+        <p style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: '0.7rem', color: 'rgba(255,255,255,0.5)',
+          textTransform: 'uppercase', letterSpacing: '0.12em',
+          whiteSpace: 'nowrap',
+        }}>
+          Global Privacy Assembly
+        </p>
       </header>
 
       {/* ── BODY ───────────────────────────────────────────────────────── */}

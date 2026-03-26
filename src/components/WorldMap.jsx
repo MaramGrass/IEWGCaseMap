@@ -16,6 +16,7 @@ export default function WorldMap({
   const gRef = useRef(null)
   const projRef = useRef(null)
   const containerRef = useRef(null)
+  const zoomKRef = useRef(1)
   const [worldData, setWorldData] = useState(null)
   const [dims, setDims] = useState({ w: 900, h: 520 })
 
@@ -82,7 +83,12 @@ export default function WorldMap({
     // Zoom behaviour
     const zoom = d3.zoom()
       .scaleExtent([0.7, 14])
-      .on('zoom', e => g.attr('transform', e.transform))
+      .on('zoom', e => {
+        g.attr('transform', e.transform)
+        const k = e.transform.k
+        zoomKRef.current = k
+        g.selectAll('.bubble').attr('transform', d => `translate(${d.cx},${d.cy}) scale(${1 / k})`)
+      })
 
     svg.call(zoom)
     svg.on('dblclick.zoom', () =>
@@ -209,9 +215,11 @@ export default function WorldMap({
       const isSelected = selectedJurisdiction === jur
       const isHighlighted = highlightSet.has(jur)
 
+      const k = zoomKRef.current
       const bg = overlay.append('g')
+        .datum({ cx, cy })
         .attr('class', 'bubble')
-        .attr('transform', `translate(${cx},${cy})`)
+        .attr('transform', `translate(${cx},${cy}) scale(${1 / k})`)
         .style('cursor', 'pointer')
 
       // Outer ring when selected or highlighted

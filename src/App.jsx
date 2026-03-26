@@ -89,7 +89,7 @@ export default function App() {
             </h1>
             <p style={{
               fontFamily: 'var(--font-mono)',
-              fontSize: '0.6rem', color: 'rgba(26,46,90,0.45)',
+              fontSize: '0.6rem', color: 'rgba(255,255,255, 0.3)',
               textTransform: 'uppercase', letterSpacing: '0.1em',
               marginTop: '0.2rem',
             }}>
@@ -98,26 +98,12 @@ export default function App() {
           </div>
         </div>
 
-        {/* Right: stats */}
-        <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
-          {[
-            ['30', 'Cases'],
-            [ALL_JURISDICTIONS.length, 'Jurisdictions'],
-            [filteredCases.length, 'Showing'],
-          ].map(([n, l]) => (
-            <div key={l} style={{ textAlign: 'center' }}>
-              <div style={{
-                fontFamily: 'var(--font-sans)', fontSize: '1.4rem',
-                fontWeight: 700, color: '#4a7fd4', lineHeight: 1,
-              }}>{n}</div>
-              <div style={{
-                fontFamily: 'var(--font-mono)', fontSize: '0.55rem',
-                textTransform: 'uppercase', letterSpacing: '0.1em',
-                color: 'rgba(26,46,90,0.4)', marginTop: '0.15rem',
-              }}>{l}</div>
-            </div>
-          ))}
-        </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+          <img
+            src="/IEWG_Logo.jpg"
+            alt="IEWG Logo"
+            style={{ height: 60, width: 60, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
+          />
       </header>
 
       {/* ── BODY ───────────────────────────────────────────────────────── */}

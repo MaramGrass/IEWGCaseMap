@@ -29,8 +29,8 @@ html, body, #root {
 
 body {
   font-family: 'Outfit', sans-serif;
-  background: #edf1f8;
-  color: var(--navy-deep);
+  background: #123160;
+  color: var(--white);
   -webkit-font-smoothing: antialiased;
 }
 

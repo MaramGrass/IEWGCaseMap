@@ -97,13 +97,6 @@ export default function App() {
             </p>
           </div>
         </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <img
-            src="/IEWG_Logo.jpg"
-            alt="IEWG Logo"
-            style={{ height: 60, width: 60, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
-          />
       </header>
 
       {/* ── BODY ───────────────────────────────────────────────────────── */}

@@ -82,7 +82,7 @@ export default function WorldMap({
 
     // Zoom behaviour
     const zoom = d3.zoom()
-      .scaleExtent([0.7, 14])
+      .scaleExtent([1, 14])
       .on('zoom', e => {
         g.attr('transform', e.transform)
         const k = e.transform.k
@@ -124,6 +124,25 @@ export default function WorldMap({
     const highlightSet = new Set()
     if (activeCase) activeCase.affected_countries.forEach(ac => highlightSet.add(ac))
     else if (selectedJurisdiction) highlightSet.add(selectedJurisdiction)
+
+    // ── Country fill highlights ──────────────────────────────────────────
+    const highlightColor = activeCase
+      ? CAT_CONFIG[activeCase.enforcement_category]?.color || '#4a7fd4'
+      : '#4a9fd4'
+
+    g.select('.country-fills').selectAll('path').each(function(d) {
+      let matched = false
+      if (highlightSet.size > 0) {
+        for (const country of highlightSet) {
+          const coords = COORD_MAP[country]
+          if (coords && d3.geoContains(d, coords)) { matched = true; break }
+        }
+      }
+      d3.select(this)
+        .attr('fill', matched ? highlightColor + '40' : '#1e3560')
+        .attr('stroke', matched ? highlightColor : '#243970')
+        .attr('stroke-width', matched ? 1.5 : 0.5)
+    })
 
     // ── Connection arcs ──────────────────────────────────────────────────
     if (activeCase && activeCase.affected_countries.length > 1) {
@@ -180,24 +199,6 @@ export default function WorldMap({
           .attr('opacity', 0.4)
       }
     }
-
-    // ── Country highlight halos ──────────────────────────────────────────
-    highlightSet.forEach(country => {
-      const coords = COORD_MAP[country]
-      if (!coords) return
-      const [cx, cy] = proj(coords)
-      const col = activeCase
-        ? CAT_CONFIG[activeCase.enforcement_category]?.color || '#4a7fd4'
-        : '#4a9fd4'
-
-      overlay.append('circle')
-        .attr('cx', cx).attr('cy', cy).attr('r', 28)
-        .attr('fill', col).attr('opacity', 0.1)
-      overlay.append('circle')
-        .attr('cx', cx).attr('cy', cy).attr('r', 28)
-        .attr('fill', 'none')
-        .attr('stroke', col).attr('stroke-width', 1.2).attr('opacity', 0.35)
-    })
 
     // ── Jurisdiction bubbles ─────────────────────────────────────────────
     JURISDICTION_COUNTRIES.forEach(jur => {

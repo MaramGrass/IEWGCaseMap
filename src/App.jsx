@@ -193,7 +193,7 @@ export default function App() {
 
           {/* Legend */}
           <div style={{
-            position: 'absolute', bottom: 12, right: 12, zIndex: 20,
+            position: 'absolute', top: 12, right: 12, zIndex: 20,
             background: 'rgba(255,255,255,0.95)',
             border: '1px solid rgba(26,46,90,0.12)',
             padding: '0.7rem 0.9rem',
@@ -249,15 +249,29 @@ export default function App() {
             }}>
               Case Registry
             </h2>
-            <p style={{
-              fontFamily: 'var(--font-mono)', fontSize: '0.6rem',
-              color: 'rgba(26,46,90,0.4)', marginTop: '0.2rem',
-              letterSpacing: '0.04em',
-            }}>
-              {selectedJurisdiction
-                ? `Filtered: ${selectedJurisdiction}`
-                : 'Hover a case to see connections on map'}
-            </p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.2rem' }}>
+              <p style={{
+                fontFamily: 'var(--font-mono)', fontSize: '0.6rem',
+                color: 'rgba(26,46,90,0.4)',
+                letterSpacing: '0.04em',
+              }}>
+                {selectedJurisdiction
+                  ? `Filtered: ${selectedJurisdiction}`
+                  : 'Hover a case to see connections on map'}
+              </p>
+              {selectedJurisdiction && (
+                <button
+                  onClick={() => setSelectedJurisdiction(null)}
+                  style={{
+                    fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    color: '#4a7fd4', letterSpacing: '0.04em', padding: 0,
+                  }}
+                >
+                  ✕ clear
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Search */}

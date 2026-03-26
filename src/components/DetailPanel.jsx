@@ -21,16 +21,6 @@ export default function DetailPanel({ caseData, onClose }) {
 
   return (
     <>
-      {/* Backdrop */}
-      <div
-        onClick={onClose}
-        style={{
-          position: 'fixed', inset: 0, zIndex: 400,
-          background: 'rgba(10,18,40,0.4)',
-          backdropFilter: 'blur(3px)',
-        }}
-      />
-
       {/* Panel */}
       <div style={{
         position: 'fixed', top: 0, right: 0, bottom: 0,

@@ -13,6 +13,8 @@
   --text:       #0f1d3a;
 
   --font-family: 'Outfit', sans-serif;
+  --font-sans:   'Outfit', sans-serif;
+  --font-mono:   'Outfit', sans-serif;
 }
 
 *, *::before, *::after {
@@ -29,7 +31,7 @@ html, body, #root {
 
 body {
   font-family: 'Outfit', sans-serif;
-  background: #edf1f8;
+  background: #f0f3f9;
   color: var(--navy-deep);
   -webkit-font-smoothing: antialiased;
 }
@@ -37,7 +39,7 @@ body {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #b0bdd8; border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: #b8c4d8; border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* Utility */

@@ -56,7 +56,7 @@ export default function App() {
     <div style={{
       display: 'flex', flexDirection: 'column',
       height: '100vh', width: '100vw',
-      background: '#edf1f8',
+      background: '#f0f3f9',
       overflow: 'hidden',
     }}>
 
@@ -77,7 +77,7 @@ export default function App() {
             alt="IEWG Logo"
             style={{ height: 60, width: 60, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
           />
-          <div style={{ width: 1, height: 32, background: 'rgba(26,46,90,0.15)' }} />
+          <div style={{ width: 1, height: 32, background: 'rgba(255,255,255,0.12)' }} />
           <div>
             <h1 style={{
               fontFamily: 'var(--font-sans)',
@@ -93,17 +93,10 @@ export default function App() {
               textTransform: 'uppercase', letterSpacing: '0.1em',
               marginTop: '0.2rem',
             }}>
-              International Enforcement Cooperation Working Group · GPA
+              International Enforcement Cooperation Working Group
             </p>
           </div>
         </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <img
-            src="/IEWG_Logo.jpg"
-            alt="IEWG Logo"
-            style={{ height: 60, width: 60, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
-          />
       </header>
 
       {/* ── BODY ───────────────────────────────────────────────────────── */}
@@ -145,8 +138,8 @@ export default function App() {
           {/* Year slider */}
           <div style={{
             position: 'absolute', bottom: 12, left: 12, zIndex: 20,
-            background: 'rgba(255,255,255,0.95)',
-            border: '1px solid rgba(26,46,90,0.12)',
+            background: 'rgba(10,28,64,0.9)',
+            border: '1px solid rgba(255,255,255,0.1)',
             padding: '0.65rem 1rem',
             backdropFilter: 'blur(6px)',
             borderRadius: 3,
@@ -154,7 +147,7 @@ export default function App() {
             <div style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
               textTransform: 'uppercase', letterSpacing: '0.1em',
-              color: 'rgba(26,46,90,0.5)', marginBottom: '0.4rem',
+              color: 'rgba(255,255,255,0.4)', marginBottom: '0.4rem',
             }}>
               Up to year
             </div>
@@ -174,8 +167,8 @@ export default function App() {
           {/* Legend */}
           <div style={{
             position: 'absolute', top: 12, right: 12, zIndex: 20,
-            background: 'rgba(255,255,255,0.95)',
-            border: '1px solid rgba(26,46,90,0.12)',
+            background: 'rgba(10,28,64,0.9)',
+            border: '1px solid rgba(255,255,255,0.1)',
             padding: '0.7rem 0.9rem',
             backdropFilter: 'blur(6px)',
             borderRadius: 3,
@@ -183,19 +176,19 @@ export default function App() {
             <div style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
               textTransform: 'uppercase', letterSpacing: '0.1em',
-              color: 'rgba(26,46,90,0.45)', marginBottom: '0.5rem',
+              color: 'rgba(255,255,255,0.4)', marginBottom: '0.5rem',
             }}>
               Enforcement Type
             </div>
             {Object.entries(CAT_CONFIG).map(([k, v]) => (
               <div key={k} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.32rem' }}>
                 <div style={{ width: 9, height: 9, borderRadius: '50%', background: v.color, flexShrink: 0, boxShadow: `0 0 4px ${v.color}66` }} />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'rgba(26,46,90,0.7)' }}>{v.label}</span>
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'rgba(255,255,255,0.65)' }}>{v.label}</span>
               </div>
             ))}
             <div style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.55rem',
-              color: 'rgba(26,46,90,0.35)', marginTop: '0.5rem',
+              color: 'rgba(255,255,255,0.28)', marginTop: '0.5rem',
             }}>
               Size = number of cases
             </div>
@@ -232,7 +225,7 @@ export default function App() {
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.2rem' }}>
               <p style={{
                 fontFamily: 'var(--font-mono)', fontSize: '0.6rem',
-                color: 'rgba(26,46,90,0.4)',
+                color: 'rgba(26,46,90,0.45)',
                 letterSpacing: '0.04em',
               }}>
                 {selectedJurisdiction
@@ -263,7 +256,7 @@ export default function App() {
               onChange={e => setSearchQuery(e.target.value)}
               style={{
                 width: '100%',
-                background: 'rgba(26,46,90,0.05)',
+                background: 'rgba(26,46,90,0.04)',
                 border: '1px solid rgba(26,46,90,0.15)',
                 padding: '0.45rem 0.75rem',
                 fontFamily: 'var(--font-sans)', fontSize: '0.78rem',
@@ -278,7 +271,7 @@ export default function App() {
               <div style={{
                 padding: '2.5rem 1.25rem', textAlign: 'center',
                 fontFamily: 'var(--font-mono)', fontSize: '0.75rem',
-                color: 'rgba(26,46,90,0.3)',
+                color: 'rgba(26,46,90,0.35)',
               }}>
                 No cases match current filters.
               </div>
@@ -289,15 +282,15 @@ export default function App() {
                   onClick={() => setSelectedJurisdiction(jur === selectedJurisdiction ? null : jur)}
                   style={{
                     padding: '0.5rem 1.25rem',
-                    background: 'rgba(26,46,90,0.04)',
+                    background: 'rgba(26,46,90,0.03)',
                     borderBottom: '1px solid rgba(26,46,90,0.08)',
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                     cursor: 'pointer',
                     position: 'sticky', top: 0, zIndex: 1,
                     transition: 'background 0.15s',
                   }}
-                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(26,46,90,0.08)'}
-                  onMouseLeave={e => e.currentTarget.style.background = 'rgba(26,46,90,0.04)'}
+                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(26,46,90,0.07)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'rgba(26,46,90,0.03)'}
                 >
                   <span style={{
                     fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
@@ -308,7 +301,7 @@ export default function App() {
                   </span>
                   <span style={{
                     fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
-                    color: 'rgba(26,46,90,0.35)',
+                    color: 'rgba(26,46,90,0.4)',
                     background: 'rgba(26,46,90,0.06)',
                     padding: '0.1rem 0.4rem', borderRadius: 2,
                   }}>
@@ -330,12 +323,12 @@ export default function App() {
                         padding: '0.7rem 1.25rem',
                         borderBottom: '1px solid rgba(26,46,90,0.06)',
                         borderLeft: isSelected
-                          ? `3px solid ${CAT_CONFIG[c.enforcement_category]?.color || '#4a9fd4'}`
+                          ? `3px solid ${CAT_CONFIG[c.enforcement_category]?.color || '#4a7fd4'}`
                           : '3px solid transparent',
                         background: isHovered
-                          ? 'rgba(74,159,212,0.08)'
+                          ? 'rgba(74,127,212,0.07)'
                           : isSelected
-                          ? 'rgba(74,159,212,0.05)'
+                          ? 'rgba(74,127,212,0.04)'
                           : 'transparent',
                         cursor: 'pointer',
                         transition: 'background 0.12s',
@@ -387,9 +380,9 @@ function FilterChip({ active, color, onClick, children }) {
     <button
       onClick={onClick}
       style={{
-        background: active ? (color || '#1a2e5a') : 'rgba(255,255,255,0.92)',
-        border: `1px solid ${active ? (color || '#1a2e5a') : 'rgba(26,46,90,0.2)'}`,
-        color: active ? '#ffffff' : 'rgba(26,46,90,0.6)',
+        background: active ? (color || 'rgba(255,255,255,0.9)') : 'rgba(10,28,64,0.88)',
+        border: `1px solid ${active ? (color || 'rgba(255,255,255,0.8)') : 'rgba(255,255,255,0.18)'}`,
+        color: active ? (color ? '#ffffff' : '#0f1d3a') : 'rgba(255,255,255,0.65)',
         padding: '0.3rem 0.75rem',
         fontFamily: 'var(--font-mono)', fontSize: '0.66rem',
         letterSpacing: '0.04em', cursor: 'pointer', borderRadius: 2,

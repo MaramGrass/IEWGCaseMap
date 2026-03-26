@@ -83,6 +83,7 @@ export default function WorldMap({
     // Zoom behaviour
     const zoom = d3.zoom()
       .scaleExtent([1, 14])
+      .translateExtent([[0, 0], [w, h]])
       .on('zoom', e => {
         g.attr('transform', e.transform)
         const k = e.transform.k
@@ -247,7 +248,7 @@ export default function WorldMap({
           .attr('text-anchor', 'middle')
           .attr('dominant-baseline', 'middle')
           .attr('fill', 'white')
-          .style('font-family', "'Source Code Pro', monospace")
+          .style('font-family', "'Outfit', sans-serif")
           .style('font-size', '9px')
           .style('font-weight', '600')
           .style('pointer-events', 'none')
@@ -262,7 +263,7 @@ export default function WorldMap({
     // Click base layer to clear jurisdiction
     g.select('.country-fills').on('click', () => onSelectJurisdiction(null))
 
-  }, [filteredCases, selectedCaseId, hoveredCaseId, selectedJurisdiction, onSelectJurisdiction])
+  }, [worldData, filteredCases, selectedCaseId, hoveredCaseId, selectedJurisdiction, onSelectJurisdiction])
 
   return (
     <div

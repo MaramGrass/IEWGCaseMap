@@ -63,7 +63,7 @@ export default function App() {
       {/* ── HEADER ─────────────────────────────────────────────────────── */}
       <header style={{
         flexShrink: 0,
-        background: '#ffffff',
+        background: '#12315d',
         borderBottom: '1px solid rgba(26,46,90,0.1)',
         padding: '0 1.75rem',
         height: 68,
@@ -82,7 +82,7 @@ export default function App() {
             <h1 style={{
               fontFamily: 'var(--font-sans)',
               fontSize: 'clamp(0.85rem, 1.5vw, 1.05rem)',
-              fontWeight: 700, color: '#1a2e5a',
+              fontWeight: 700, color: '#ffffff',
               letterSpacing: '-0.01em', lineHeight: 1.2,
             }}>
               Transnational Data Protection Cases

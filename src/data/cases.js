@@ -60,6 +60,10 @@ export const COORD_MAP = {
   "Indonesia":        [117.0,  -0.8],
   "Thailand":         [100.5,  13.7],
   "China":            [104.2,  35.9],
+  "Jersey":           [-2.1,   49.2],
+  "Guernsey":         [-2.6,   49.5],
+  "Isle of Man":      [-4.5,   54.2],
+  "Mauritius":        [57.6,  -20.3],
 };
 
 export const CASES = [

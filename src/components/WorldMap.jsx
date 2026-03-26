@@ -83,6 +83,7 @@ export default function WorldMap({
     // Zoom behaviour
     const zoom = d3.zoom()
       .scaleExtent([1, 14])
+      .translateExtent([[0, 0], [w, h]])
       .on('zoom', e => {
         g.attr('transform', e.transform)
         const k = e.transform.k

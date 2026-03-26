@@ -75,13 +75,7 @@ export default function App() {
           <img
             src="/IEWG_Logo.jpg"
             alt="IEWG Logo"
-            style={{ height: 44, width: 44, borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }}
-          />
-          <div style={{ width: 1, height: 32, background: 'rgba(26,46,90,0.15)' }} />
-          <img
-            src="/GPA_Logo.png"
-            alt="GPA Logo"
-            style={{ height: 38, width: 38, objectFit: 'contain', flexShrink: 0 }}
+            style={{ height: 60, width: 60, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
           />
           <div style={{ width: 1, height: 32, background: 'rgba(26,46,90,0.15)' }} />
           <div>

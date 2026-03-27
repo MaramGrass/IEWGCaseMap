@@ -24,10 +24,10 @@ export default function DetailPanel({ caseData, onClose }) {
       <div style={{
         position: 'fixed', top: 0, right: 0, bottom: 0,
         width: 'min(600px, 96vw)', zIndex: 401,
-        background: '#0d2450',
-        borderLeft: '1px solid rgba(255,255,255,0.08)',
+        background: '#ffffff',
+        borderLeft: '1px solid rgba(26,46,90,0.12)',
         display: 'flex', flexDirection: 'column',
-        boxShadow: '-12px 0 60px rgba(0,0,0,0.4)',
+        boxShadow: '-12px 0 60px rgba(26,46,90,0.15)',
         animation: 'slideIn 0.28s cubic-bezier(0.16,1,0.3,1)',
       }}>
         <style>{`
@@ -38,20 +38,20 @@ export default function DetailPanel({ caseData, onClose }) {
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           padding: '1rem 1.5rem',
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
-          background: 'rgba(255,255,255,0.04)',
+          borderBottom: '1px solid rgba(26,46,90,0.1)',
+          background: 'rgba(26,46,90,0.03)',
           flexShrink: 0,
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <div style={{
               width: 10, height: 10, borderRadius: '50%',
               background: cfg.color, flexShrink: 0,
-              boxShadow: `0 0 8px ${cfg.color}88`,
+              boxShadow: `0 0 8px ${cfg.color}66`,
             }} />
             <span style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
               textTransform: 'uppercase', letterSpacing: '0.12em',
-              color: 'rgba(255,255,255,0.5)',
+              color: 'rgba(26,46,90,0.5)',
             }}>
               {caseData.jurisdiction}
             </span>
@@ -59,17 +59,17 @@ export default function DetailPanel({ caseData, onClose }) {
           <button
             onClick={onClose}
             style={{
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.12)',
-              color: 'rgba(255,255,255,0.6)',
+              background: 'rgba(26,46,90,0.06)',
+              border: '1px solid rgba(26,46,90,0.15)',
+              color: 'rgba(26,46,90,0.6)',
               padding: '0.3rem 0.8rem',
               fontFamily: 'var(--font-mono)', fontSize: '0.68rem',
               cursor: 'pointer', borderRadius: 2,
               letterSpacing: '0.08em',
               transition: 'all 0.15s',
             }}
-            onMouseEnter={e => { e.target.style.background = 'rgba(255,255,255,0.12)'; e.target.style.color = '#fff' }}
-            onMouseLeave={e => { e.target.style.background = 'rgba(255,255,255,0.06)'; e.target.style.color = 'rgba(255,255,255,0.6)' }}
+            onMouseEnter={e => { e.target.style.background = 'rgba(26,46,90,0.12)'; e.target.style.color = '#1a2e5a' }}
+            onMouseLeave={e => { e.target.style.background = 'rgba(26,46,90,0.06)'; e.target.style.color = 'rgba(26,46,90,0.6)' }}
           >
             ESC ✕
           </button>
@@ -83,7 +83,7 @@ export default function DetailPanel({ caseData, onClose }) {
             fontFamily: 'var(--font-sans)',
             fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
             fontWeight: 700, lineHeight: 1.25,
-            color: '#ffffff', marginBottom: '1rem',
+            color: '#1a2e5a', marginBottom: '1rem',
           }}>
             {caseData.case_name}
           </h2>
@@ -104,7 +104,7 @@ export default function DetailPanel({ caseData, onClose }) {
               borderLeft: `3px solid ${cfg.color}`,
               borderRadius: '0 3px 3px 0',
               fontSize: '0.9rem', fontWeight: 500,
-              color: '#ffffff', lineHeight: 1.55,
+              color: '#1a2e5a', lineHeight: 1.55,
             }}>
               {caseData.enforcement_tool}
             </div>
@@ -137,9 +137,9 @@ export default function DetailPanel({ caseData, onClose }) {
                   <span key={ac} style={{
                     fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
                     padding: '0.2rem 0.55rem',
-                    background: 'rgba(255,255,255,0.07)',
-                    border: '1px solid rgba(255,255,255,0.12)',
-                    borderRadius: 2, color: 'rgba(255,255,255,0.75)',
+                    background: 'rgba(26,46,90,0.06)',
+                    border: '1px solid rgba(26,46,90,0.12)',
+                    borderRadius: 2, color: 'rgba(26,46,90,0.75)',
                   }}>{ac}</span>
                 ))}
               </div>
@@ -162,8 +162,8 @@ export default function DetailPanel({ caseData, onClose }) {
                 href={url} target="_blank" rel="noopener noreferrer"
                 style={{
                   fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
-                  color: '#4a9fd4', wordBreak: 'break-all', lineHeight: 1.6,
-                  textDecoration: 'none', borderBottom: '1px solid #4a9fd488',
+                  color: '#4a7fd4', wordBreak: 'break-all', lineHeight: 1.6,
+                  textDecoration: 'none', borderBottom: '1px solid #4a7fd466',
                 }}
               >
                 ↗ {url}
@@ -183,7 +183,7 @@ function SectionLabel({ children }) {
     <div style={{
       fontFamily: 'var(--font-mono)', fontSize: '0.6rem',
       textTransform: 'uppercase', letterSpacing: '0.12em',
-      color: 'rgba(255,255,255,0.35)', marginBottom: '0.4rem',
+      color: 'rgba(26,46,90,0.4)', marginBottom: '0.4rem',
     }}>
       {children}
     </div>
@@ -191,7 +191,7 @@ function SectionLabel({ children }) {
 }
 
 function Divider() {
-  return <div style={{ height: 1, background: 'rgba(255,255,255,0.07)', margin: '1.2rem 0' }} />
+  return <div style={{ height: 1, background: 'rgba(26,46,90,0.08)', margin: '1.2rem 0' }} />
 }
 
 function MonoTag({ children }) {
@@ -199,9 +199,9 @@ function MonoTag({ children }) {
     <span style={{
       fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
       padding: '0.12rem 0.5rem',
-      background: 'rgba(255,255,255,0.07)',
-      border: '1px solid rgba(255,255,255,0.12)',
-      borderRadius: 2, color: 'rgba(255,255,255,0.55)',
+      background: 'rgba(26,46,90,0.06)',
+      border: '1px solid rgba(26,46,90,0.12)',
+      borderRadius: 2, color: 'rgba(26,46,90,0.6)',
     }}>
       {children}
     </span>
@@ -230,7 +230,7 @@ export function CatTag({ cat, small = false }) {
 
 const bodyText = {
   fontSize: '0.85rem',
-  color: 'rgba(255,255,255,0.7)',
+  color: 'rgba(26,46,90,0.7)',
   lineHeight: 1.7,
-  fontWeight: 300,
+  fontWeight: 400,
 }

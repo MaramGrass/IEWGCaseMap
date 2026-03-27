@@ -50,6 +50,11 @@ export default function App() {
     setSelectedCaseId(null)
   }, [])
 
+  const handleSelectJurisdiction = useCallback((jur) => {
+    setSelectedJurisdiction(jur)
+    closeDetail()
+  }, [closeDetail])
+
   const FILTER_CHIPS = [
     { key: 'all', label: 'All Types' },
     ...Object.entries(CAT_CONFIG).map(([k, v]) => ({ key: k, label: v.label })),
@@ -213,7 +218,7 @@ export default function App() {
             selectedCaseId={selectedCaseId}
             hoveredCaseId={hoveredCaseId}
             selectedJurisdiction={selectedJurisdiction}
-            onSelectJurisdiction={setSelectedJurisdiction}
+            onSelectJurisdiction={handleSelectJurisdiction}
           />
         </div>
 

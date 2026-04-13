@@ -3,10 +3,11 @@ import * as d3 from 'd3'
 import * as topojson from 'topojson-client'
 import { COORD_MAP, CAT_CONFIG, CASES } from '../data/cases'
 
-const JURISDICTION_COUNTRIES = [...new Set(CASES.map(c => c.jurisdiction))]
+const JURISDICTION_COUNTRIES = Object.keys(COORD_MAP)
 
 export default function WorldMap({
   filteredCases,
+  mapCases,
   selectedCaseId,
   hoveredCaseId,
   selectedJurisdiction,
@@ -110,9 +111,9 @@ export default function WorldMap({
     const activeId = hoveredCaseId ?? selectedCaseId
     const activeCase = activeId != null ? CASES.find(c => c.id === activeId) : null
 
-    // Per-jurisdiction stats from filtered cases
+    // Per-jurisdiction stats — use mapCases (no jurisdiction filter) so all bubbles stay visible
     const jurStats = {}
-    filteredCases.forEach(c => {
+    mapCases.forEach(c => {
       if (!jurStats[c.jurisdiction]) jurStats[c.jurisdiction] = { count: 0, cats: {} }
       jurStats[c.jurisdiction].count++
       jurStats[c.jurisdiction].cats[c.enforcement_category] =
@@ -208,12 +209,11 @@ export default function WorldMap({
       const [cx, cy] = proj(coords)
       const data = jurStats[jur]
       const count = data?.count || 0
-      if (count === 0) return
 
-      const cats = data.cats
+      const cats = data?.cats || {}
       const dominant = Object.entries(cats).sort((a, b) => b[1] - a[1])[0]?.[0] || 'Other'
-      const color = CAT_CONFIG[dominant]?.color || '#4a7fd4'
-      const r = 9 + (count / maxCount) * 16
+      const color = count > 0 ? (CAT_CONFIG[dominant]?.color || '#4a7fd4') : 'rgba(255,255,255,0.25)'
+      const r = count > 0 ? 9 + (count / maxCount) * 16 : 5
       const isSelected = selectedJurisdiction === jur
       const isHighlighted = highlightSet.has(jur)
 
@@ -222,7 +222,16 @@ export default function WorldMap({
         .datum({ cx, cy })
         .attr('class', 'bubble')
         .attr('transform', `translate(${cx},${cy}) scale(${1 / k})`)
-        .style('cursor', 'pointer')
+        .style('cursor', count > 0 ? 'pointer' : 'default')
+
+      if (count === 0) {
+        // Small placeholder dot for known jurisdictions with no cases
+        bg.append('circle').attr('r', r)
+          .attr('fill', 'rgba(255,255,255,0.15)')
+          .attr('stroke', 'rgba(255,255,255,0.3)')
+          .attr('stroke-width', 1)
+        return
+      }
 
       // Outer ring when selected or highlighted
       if (isSelected || isHighlighted) {
@@ -263,7 +272,7 @@ export default function WorldMap({
     // Click base layer to clear jurisdiction
     g.select('.country-fills').on('click', () => onSelectJurisdiction(null))
 
-  }, [worldData, filteredCases, selectedCaseId, hoveredCaseId, selectedJurisdiction, onSelectJurisdiction])
+  }, [worldData, mapCases, filteredCases, selectedCaseId, hoveredCaseId, selectedJurisdiction, onSelectJurisdiction])
 
   return (
     <div

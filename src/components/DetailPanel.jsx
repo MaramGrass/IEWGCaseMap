@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { CAT_CONFIG } from '../data/cases'
 
-export default function DetailPanel({ caseData, onClose }) {
+export default function DetailPanel({ caseData, onClose, isMobile }) {
   useEffect(() => {
     const handler = e => { if (e.key === 'Escape') onClose() }
     window.addEventListener('keydown', handler)
@@ -18,26 +18,57 @@ export default function DetailPanel({ caseData, onClose }) {
   }
   const url = extractUrl(caseData.hyperlink)
 
+  const panelStyle = isMobile ? {
+    position: 'fixed', bottom: 0, left: 0, right: 0,
+    height: '82vh', zIndex: 401,
+    background: '#0d2450',
+    borderTop: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '14px 14px 0 0',
+    display: 'flex', flexDirection: 'column',
+    boxShadow: '0 -12px 60px rgba(0,0,0,0.5)',
+    animation: 'slideUp 0.28s cubic-bezier(0.16,1,0.3,1)',
+  } : {
+    position: 'fixed', top: 0, right: 0, bottom: 0,
+    width: 'min(600px, 96vw)', zIndex: 401,
+    background: '#0d2450',
+    borderLeft: '1px solid rgba(255,255,255,0.08)',
+    display: 'flex', flexDirection: 'column',
+    boxShadow: '-12px 0 60px rgba(0,0,0,0.4)',
+    animation: 'slideIn 0.28s cubic-bezier(0.16,1,0.3,1)',
+  }
+
   return (
     <>
+      <style>{`
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+      `}</style>
+
+      {/* Mobile backdrop */}
+      {isMobile && (
+        <div
+          onClick={onClose}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 400,
+            background: 'rgba(0,0,0,0.45)',
+          }}
+        />
+      )}
+
       {/* Panel */}
-      <div style={{
-        position: 'fixed', top: 0, right: 0, bottom: 0,
-        width: 'min(600px, 96vw)', zIndex: 401,
-        background: '#0d2450',
-        borderLeft: '1px solid rgba(255,255,255,0.08)',
-        display: 'flex', flexDirection: 'column',
-        boxShadow: '-12px 0 60px rgba(0,0,0,0.4)',
-        animation: 'slideIn 0.28s cubic-bezier(0.16,1,0.3,1)',
-      }}>
-        <style>{`
-          @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        `}</style>
+      <div style={panelStyle}>
+
+        {/* Mobile drag handle */}
+        {isMobile && (
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '0.6rem 0 0', flexShrink: 0 }}>
+            <div style={{ width: 40, height: 4, borderRadius: 2, background: 'rgba(255,255,255,0.2)' }} />
+          </div>
+        )}
 
         {/* Header bar */}
         <div style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          padding: '1rem 1.5rem',
+          padding: isMobile ? '0.65rem 1.25rem' : '1rem 1.5rem',
           borderBottom: '1px solid rgba(255,255,255,0.08)',
           background: 'rgba(255,255,255,0.04)',
           flexShrink: 0,
@@ -62,7 +93,8 @@ export default function DetailPanel({ caseData, onClose }) {
               background: 'rgba(255,255,255,0.06)',
               border: '1px solid rgba(255,255,255,0.12)',
               color: 'rgba(255,255,255,0.6)',
-              padding: '0.3rem 0.8rem',
+              padding: isMobile ? '0.5rem 1rem' : '0.3rem 0.8rem',
+              minHeight: isMobile ? 44 : undefined,
               fontFamily: 'var(--font-mono)', fontSize: '0.68rem',
               cursor: 'pointer', borderRadius: 2,
               letterSpacing: '0.08em',
@@ -71,17 +103,21 @@ export default function DetailPanel({ caseData, onClose }) {
             onMouseEnter={e => { e.target.style.background = 'rgba(255,255,255,0.12)'; e.target.style.color = '#fff' }}
             onMouseLeave={e => { e.target.style.background = 'rgba(255,255,255,0.06)'; e.target.style.color = 'rgba(255,255,255,0.6)' }}
           >
-            ESC ✕
+            {isMobile ? '✕ Close' : 'ESC ✕'}
           </button>
         </div>
 
         {/* Scrollable body */}
-        <div style={{ overflowY: 'auto', flex: 1, padding: '1.75rem 1.5rem' }}>
+        <div style={{
+          overflowY: 'auto', flex: 1,
+          padding: isMobile ? '1.25rem' : '1.75rem 1.5rem',
+          WebkitOverflowScrolling: 'touch',
+        }}>
 
           {/* Title */}
           <h2 style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
+            fontSize: 'clamp(1.1rem, 4vw, 1.5rem)',
             fontWeight: 700, lineHeight: 1.25,
             color: '#ffffff', marginBottom: '1rem',
           }}>

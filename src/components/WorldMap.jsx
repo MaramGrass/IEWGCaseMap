@@ -297,7 +297,9 @@ export default function WorldMap({
         color: 'rgba(255,255,255,0.3)', letterSpacing: '0.05em',
         pointerEvents: 'none',
       }}>
-        scroll · drag · dbl-click to reset
+        {'ontouchstart' in window || navigator.maxTouchPoints > 0
+          ? 'pinch · drag · double-tap to reset'
+          : 'scroll · drag · dbl-click to reset'}
       </div>
     </div>
   )

@@ -42,6 +42,10 @@ body {
 ::-webkit-scrollbar-thumb { background: #b8c4d8; border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
+/* Hide scrollbar on horizontally-scrollable filter chips */
+.filter-chips-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+.filter-chips-scroll::-webkit-scrollbar { display: none; }
+
 /* Utility */
 .sr-only {
   position: absolute; width: 1px; height: 1px;

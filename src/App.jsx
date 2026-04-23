@@ -1,9 +1,19 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import WorldMap from './components/WorldMap'
 import DetailPanel, { CatTag } from './components/DetailPanel'
 import { CASES, CAT_CONFIG } from './data/cases'
 
 const ALL_JURISDICTIONS = [...new Set(CASES.map(c => c.jurisdiction))].sort()
+
+function useWindowWidth() {
+  const [width, setWidth] = useState(() => window.innerWidth)
+  useEffect(() => {
+    const handler = () => setWidth(window.innerWidth)
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
+  return width
+}
 
 export default function App() {
   const [activeFilter, setActiveFilter] = useState('all')
@@ -13,6 +23,8 @@ export default function App() {
   const [maxYear, setMaxYear] = useState(2022)
   const [searchQuery, setSearchQuery] = useState('')
   const [detailCase, setDetailCase] = useState(null)
+
+  const isMobile = useWindowWidth() < 768
 
   const filteredCases = useMemo(() => CASES.filter(c => {
     const yearOk = !c.year_enforced || parseInt(c.year_enforced) <= maxYear
@@ -65,51 +77,74 @@ export default function App() {
         flexShrink: 0,
         background: '#12315d',
         borderBottom: '1px solid rgba(26,46,90,0.1)',
-        padding: '0 1.75rem',
-        height: 68,
+        padding: isMobile ? '0 1rem' : '0 1.75rem',
+        height: isMobile ? 52 : 68,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         gap: '1rem',
       }}>
-        {/* Left: logos + title */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '0.75rem' : '1.25rem' }}>
           <img
             src="/IEWG_Logo.jpg"
             alt="IEWG Logo"
-            style={{ height: 60, width: 60, borderRadius: '30%', objectFit: 'cover', flexShrink: 0 }}
+            style={{
+              height: isMobile ? 38 : 60,
+              width: isMobile ? 38 : 60,
+              borderRadius: '30%', objectFit: 'cover', flexShrink: 0,
+            }}
           />
-          <div style={{ width: 1, height: 32, background: 'rgba(255,255,255,0.12)' }} />
+          <div style={{ width: 1, height: 28, background: 'rgba(255,255,255,0.12)' }} />
           <div>
             <h1 style={{
               fontFamily: 'var(--font-sans)',
-              fontSize: 'clamp(0.85rem, 1.5vw, 1.05rem)',
+              fontSize: 'clamp(0.75rem, 2.5vw, 1.05rem)',
               fontWeight: 700, color: '#ffffff',
               letterSpacing: '-0.01em', lineHeight: 1.2,
             }}>
               Transnational Data Protection Cases
             </h1>
-            <p style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.6rem', color: 'rgba(255,255,255, 0.9)',
-              textTransform: 'uppercase', letterSpacing: '0.1em',
-              marginTop: '0.2rem',
-            }}>
-              International Enforcement Cooperation Working Group
-            </p>
+            {!isMobile && (
+              <p style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.6rem', color: 'rgba(255,255,255, 0.9)',
+                textTransform: 'uppercase', letterSpacing: '0.1em',
+                marginTop: '0.2rem',
+              }}>
+                International Enforcement Cooperation Working Group
+              </p>
+            )}
           </div>
         </div>
       </header>
 
       {/* ── BODY ───────────────────────────────────────────────────────── */}
-      <div style={{ flex: 1, display: 'grid', gridTemplateColumns: '1fr 350px', overflow: 'hidden' }}>
+      <div style={{
+        flex: 1,
+        display: isMobile ? 'flex' : 'grid',
+        flexDirection: isMobile ? 'column' : undefined,
+        gridTemplateColumns: isMobile ? undefined : '1fr 350px',
+        overflow: 'hidden',
+      }}>
 
         {/* ── MAP PANEL ────────────────────────────────────────────────── */}
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <div style={{
+          position: 'relative',
+          overflow: 'hidden',
+          flexShrink: isMobile ? 0 : undefined,
+          height: isMobile ? '45vh' : undefined,
+        }}>
 
           {/* Filter chips */}
-          <div style={{
-            position: 'absolute', top: 12, left: 12, zIndex: 20,
-            display: 'flex', flexWrap: 'wrap', gap: '0.4rem',
-          }}>
+          <div
+            className="filter-chips-scroll"
+            style={{
+              position: 'absolute', top: 10, left: 10, zIndex: 20,
+              display: 'flex',
+              flexWrap: isMobile ? 'nowrap' : 'wrap',
+              gap: '0.35rem',
+              overflowX: isMobile ? 'auto' : undefined,
+              maxWidth: isMobile ? 'calc(100vw - 20px)' : undefined,
+              paddingBottom: isMobile ? '4px' : undefined,
+            }}>
             {FILTER_CHIPS.map(({ key, label }) => {
               const active = activeFilter === key
               const cfg = key !== 'all' ? CAT_CONFIG[key] : null
@@ -119,6 +154,7 @@ export default function App() {
                   active={active}
                   color={cfg?.color}
                   onClick={() => setActiveFilter(key)}
+                  small={isMobile}
                 >
                   {label}
                 </FilterChip>
@@ -129,6 +165,7 @@ export default function App() {
                 active={true}
                 color="#4a9fd4"
                 onClick={() => setSelectedJurisdiction(null)}
+                small={isMobile}
               >
                 ✕ {selectedJurisdiction}
               </FilterChip>
@@ -137,10 +174,13 @@ export default function App() {
 
           {/* Year slider */}
           <div style={{
-            position: 'absolute', bottom: 12, left: 12, zIndex: 20,
+            position: 'absolute',
+            bottom: isMobile ? 8 : 12,
+            left: isMobile ? 8 : 12,
+            zIndex: 20,
             background: 'rgba(10,28,64,0.9)',
             border: '1px solid rgba(255,255,255,0.1)',
-            padding: '0.65rem 1rem',
+            padding: isMobile ? '0.5rem 0.75rem' : '0.65rem 1rem',
             backdropFilter: 'blur(6px)',
             borderRadius: 3,
           }}>
@@ -154,7 +194,12 @@ export default function App() {
             <input
               type="range" min="2018" max="2022" value={maxYear}
               onChange={e => setMaxYear(+e.target.value)}
-              style={{ width: 130, accentColor: '#4a9fd4', display: 'block', marginBottom: '0.25rem' }}
+              style={{
+                width: isMobile ? 100 : 130,
+                accentColor: '#4a9fd4',
+                display: 'block',
+                marginBottom: '0.25rem',
+              }}
             />
             <div style={{
               fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
@@ -164,35 +209,37 @@ export default function App() {
             </div>
           </div>
 
-          {/* Legend */}
-          <div style={{
-            position: 'absolute', top: 12, right: 12, zIndex: 20,
-            background: 'rgba(10,28,64,0.9)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            padding: '0.7rem 0.9rem',
-            backdropFilter: 'blur(6px)',
-            borderRadius: 3,
-          }}>
+          {/* Legend — desktop only */}
+          {!isMobile && (
             <div style={{
-              fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
-              textTransform: 'uppercase', letterSpacing: '0.1em',
-              color: 'rgba(255,255,255,0.4)', marginBottom: '0.5rem',
+              position: 'absolute', top: 12, right: 12, zIndex: 20,
+              background: 'rgba(10,28,64,0.9)',
+              border: '1px solid rgba(255,255,255,0.1)',
+              padding: '0.7rem 0.9rem',
+              backdropFilter: 'blur(6px)',
+              borderRadius: 3,
             }}>
-              Enforcement Type
-            </div>
-            {Object.entries(CAT_CONFIG).map(([k, v]) => (
-              <div key={k} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.32rem' }}>
-                <div style={{ width: 9, height: 9, borderRadius: '50%', background: v.color, flexShrink: 0, boxShadow: `0 0 4px ${v.color}66` }} />
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'rgba(255,255,255,0.65)' }}>{v.label}</span>
+              <div style={{
+                fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
+                textTransform: 'uppercase', letterSpacing: '0.1em',
+                color: 'rgba(255,255,255,0.4)', marginBottom: '0.5rem',
+              }}>
+                Enforcement Type
               </div>
-            ))}
-            <div style={{
-              fontFamily: 'var(--font-mono)', fontSize: '0.55rem',
-              color: 'rgba(255,255,255,0.28)', marginTop: '0.5rem',
-            }}>
-              Size = number of cases
+              {Object.entries(CAT_CONFIG).map(([k, v]) => (
+                <div key={k} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.32rem' }}>
+                  <div style={{ width: 9, height: 9, borderRadius: '50%', background: v.color, flexShrink: 0, boxShadow: `0 0 4px ${v.color}66` }} />
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.62rem', color: 'rgba(255,255,255,0.65)' }}>{v.label}</span>
+                </div>
+              ))}
+              <div style={{
+                fontFamily: 'var(--font-mono)', fontSize: '0.55rem',
+                color: 'rgba(255,255,255,0.28)', marginTop: '0.5rem',
+              }}>
+                Size = number of cases
+              </div>
             </div>
-          </div>
+          )}
 
           <WorldMap
             filteredCases={filteredCases}
@@ -207,12 +254,14 @@ export default function App() {
         <div style={{
           display: 'flex', flexDirection: 'column',
           background: '#ffffff',
-          borderLeft: '1px solid rgba(26,46,90,0.1)',
+          borderLeft: isMobile ? 'none' : '1px solid rgba(26,46,90,0.1)',
+          borderTop: isMobile ? '2px solid rgba(26,46,90,0.12)' : 'none',
           overflow: 'hidden',
+          flex: 1,
         }}>
           {/* Sidebar header */}
           <div style={{
-            padding: '0.9rem 1.25rem',
+            padding: isMobile ? '0.65rem 1.25rem' : '0.9rem 1.25rem',
             borderBottom: '1px solid rgba(26,46,90,0.1)',
             flexShrink: 0,
           }}>
@@ -222,7 +271,7 @@ export default function App() {
             }}>
               Case Registry
             </h2>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.2rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.15rem' }}>
               <p style={{
                 fontFamily: 'var(--font-mono)', fontSize: '0.6rem',
                 color: 'rgba(26,46,90,0.45)',
@@ -230,6 +279,8 @@ export default function App() {
               }}>
                 {selectedJurisdiction
                   ? `Filtered: ${selectedJurisdiction}`
+                  : isMobile
+                  ? 'Tap a case to view details'
                   : 'Hover a case to see connections on map'}
               </p>
               {selectedJurisdiction && (
@@ -238,7 +289,9 @@ export default function App() {
                   style={{
                     fontFamily: 'var(--font-mono)', fontSize: '0.58rem',
                     background: 'none', border: 'none', cursor: 'pointer',
-                    color: '#4a7fd4', letterSpacing: '0.04em', padding: 0,
+                    color: '#4a7fd4', letterSpacing: '0.04em',
+                    padding: '0.35rem 0.5rem',
+                    minHeight: 36,
                   }}
                 >
                   ✕ clear
@@ -248,7 +301,7 @@ export default function App() {
           </div>
 
           {/* Search */}
-          <div style={{ padding: '0.7rem 1.25rem', borderBottom: '1px solid rgba(26,46,90,0.1)', flexShrink: 0 }}>
+          <div style={{ padding: '0.6rem 1.25rem', borderBottom: '1px solid rgba(26,46,90,0.1)', flexShrink: 0 }}>
             <input
               type="text"
               placeholder="Search cases, technologies, DPAs…"
@@ -258,7 +311,7 @@ export default function App() {
                 width: '100%',
                 background: 'rgba(26,46,90,0.04)',
                 border: '1px solid rgba(26,46,90,0.15)',
-                padding: '0.45rem 0.75rem',
+                padding: '0.5rem 0.75rem',
                 fontFamily: 'var(--font-sans)', fontSize: '0.78rem',
                 color: '#1a2e5a', outline: 'none', borderRadius: 2,
               }}
@@ -266,7 +319,7 @@ export default function App() {
           </div>
 
           {/* Cases list */}
-          <div style={{ overflowY: 'auto', flex: 1 }}>
+          <div style={{ overflowY: 'auto', flex: 1, WebkitOverflowScrolling: 'touch' }}>
             {filteredCases.length === 0 ? (
               <div style={{
                 padding: '2.5rem 1.25rem', textAlign: 'center',
@@ -281,7 +334,8 @@ export default function App() {
                 <div
                   onClick={() => setSelectedJurisdiction(jur === selectedJurisdiction ? null : jur)}
                   style={{
-                    padding: '0.5rem 1.25rem',
+                    padding: isMobile ? '0.65rem 1.25rem' : '0.5rem 1.25rem',
+                    minHeight: isMobile ? 44 : undefined,
                     background: 'rgba(26,46,90,0.03)',
                     borderBottom: '1px solid rgba(26,46,90,0.08)',
                     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
@@ -320,7 +374,8 @@ export default function App() {
                       onMouseEnter={() => setHoveredCaseId(c.id)}
                       onMouseLeave={() => setHoveredCaseId(null)}
                       style={{
-                        padding: '0.7rem 1.25rem',
+                        padding: isMobile ? '0.85rem 1.25rem' : '0.7rem 1.25rem',
+                        minHeight: isMobile ? 52 : undefined,
                         borderBottom: '1px solid rgba(26,46,90,0.06)',
                         borderLeft: isSelected
                           ? `3px solid ${CAT_CONFIG[c.enforcement_category]?.color || '#4a7fd4'}`
@@ -370,12 +425,12 @@ export default function App() {
       </div>
 
       {/* ── DETAIL PANEL ─────────────────────────────────────────────── */}
-      {detailCase && <DetailPanel caseData={detailCase} onClose={closeDetail} />}
+      {detailCase && <DetailPanel caseData={detailCase} onClose={closeDetail} isMobile={isMobile} />}
     </div>
   )
 }
 
-function FilterChip({ active, color, onClick, children }) {
+function FilterChip({ active, color, onClick, children, small = false }) {
   return (
     <button
       onClick={onClick}
@@ -383,13 +438,15 @@ function FilterChip({ active, color, onClick, children }) {
         background: active ? (color || 'rgba(255,255,255,0.9)') : 'rgba(10,28,64,0.88)',
         border: `1px solid ${active ? (color || 'rgba(255,255,255,0.8)') : 'rgba(255,255,255,0.18)'}`,
         color: active ? (color ? '#ffffff' : '#0f1d3a') : 'rgba(255,255,255,0.65)',
-        padding: '0.3rem 0.75rem',
-        fontFamily: 'var(--font-mono)', fontSize: '0.66rem',
+        padding: small ? '0.28rem 0.6rem' : '0.3rem 0.75rem',
+        fontFamily: 'var(--font-mono)', fontSize: small ? '0.6rem' : '0.66rem',
         letterSpacing: '0.04em', cursor: 'pointer', borderRadius: 2,
         backdropFilter: 'blur(6px)',
         transition: 'all 0.15s',
         whiteSpace: 'nowrap',
+        flexShrink: 0,
         boxShadow: active && color ? `0 0 10px ${color}44` : 'none',
+        minHeight: small ? 34 : undefined,
       }}
     >
       {children}
